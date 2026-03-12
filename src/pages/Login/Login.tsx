@@ -1,3 +1,5 @@
+import { useState, useContext } from "react";
+
 import {
   ActionButton,
   ButtonPrimary,
@@ -16,7 +18,39 @@ import {
   ContainerRight,
 } from "./Login.styled";
 
+import { AuthContext } from "../../context/AuthContext";
+
 const Login = () => {
+  const { signIn } = useContext(AuthContext);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // ✅ Estado de loading para desabilitar o botão durante a requisição
+  const [isLoading, setIsLoading] = useState(false);
+
+  // ✅ Mensagem de erro no lugar de alert()
+  const [errorMessage, setErrorMessage] = useState("");
+
+  async function handleLogin(e: React.FormEvent) {
+    e.preventDefault();
+    setErrorMessage("");
+    setIsLoading(true);
+
+    try {
+      const success = await signIn(email.trim(), password.trim());
+
+      if (!success) {
+        setErrorMessage("Email ou senha inválidos.");
+      }
+      // Se success === true, redirecione via React Router ou similar
+    } catch {
+      setErrorMessage("Erro de conexão. Tente novamente.");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <Container>
       <ContainerBox>
@@ -47,19 +81,55 @@ const Login = () => {
             </ButtonEmail>
           </ActionButton>
 
-          <Divider/>
+          <Divider />
 
-          <ContainerInput>
-            <Input type="email" placeholder="Email" />
+          <form onSubmit={handleLogin}>
+            <ContainerInput>
+              <Input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setErrorMessage("");
+                }}
+                disabled={isLoading}
+                required
+              />
 
-            <Input type="password" placeholder="Password" />
+              <Input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setErrorMessage("");
+                }}
+                disabled={isLoading}
+                required
+              />
 
-            <ButtonPrimary>Sign In</ButtonPrimary>
+              {/* ✅ Erro visível na UI, não em alert() */}
+              {errorMessage && (
+                <p
+                  style={{
+                    color: "red",
+                    fontSize: "0.85rem",
+                    margin: "4px 0",
+                  }}>
+                  {errorMessage}
+                </p>
+              )}
 
-            <ButtonSecondary>Register Now</ButtonSecondary>
+              <ButtonPrimary type="submit" disabled={isLoading}>
+                {isLoading ? "Entrando..." : "Sign In"}
+              </ButtonPrimary>
 
-            <ForgetPassword>Forgot Password?</ForgetPassword>
-          </ContainerInput>
+              <ButtonSecondary type="button">Register Now</ButtonSecondary>
+
+              <ForgetPassword>Forgot Password?</ForgetPassword>
+            </ContainerInput>
+          </form>
         </ContainerRight>
       </ContainerBox>
     </Container>
