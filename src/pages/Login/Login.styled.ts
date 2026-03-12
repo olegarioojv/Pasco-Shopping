@@ -7,29 +7,35 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: scale(0.8);
 
   background: #f2f2f2;
-  padding: 20px;
-  transform: scale(0.8);
+
+  padding: 40px 20px;
+
+  @media (max-height: 800px) {
+    padding: 20px;
+  }
 `;
 
 export const ContainerBox = styled.div`
   width: 100%;
-  max-width: 1100px;
-  height: 600px;
+  max-width: 1000px;
 
   display: grid;
-  grid-template-columns: 55% 45%;
+  grid-template-columns: 50% 50%;
 
   background: white;
-  border-radius: 6px;
+  border-radius: 10px;
   overflow: hidden;
 
-  /* tablet */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+
   @media (max-width: 1024px) {
-    height: auto;
     grid-template-columns: 1fr;
+  }
+
+  @media (max-height: 800px) {
+    max-width: 900px;
   }
 `;
 
@@ -43,7 +49,6 @@ export const ContainerLeft = styled.div`
     object-fit: cover;
   }
 
-  /* esconde imagem no celular */
   @media (max-width: 768px) {
     display: none;
   }
@@ -54,9 +59,14 @@ export const ContainerRight = styled.div`
 
   display: flex;
   flex-direction: column;
+  justify-content: center;
 
   @media (max-width: 768px) {
     padding: 30px;
+  }
+
+  @media (max-height: 800px) {
+    padding: 30px 40px;
   }
 `;
 
@@ -67,6 +77,10 @@ export const Title = styled.h1`
 
   @media (max-width: 768px) {
     font-size: 24px;
+  }
+
+  @media (max-height: 800px) {
+    font-size: 26px;
   }
 `;
 
