@@ -10,6 +10,7 @@ function App() {
     <>
       <GlobalStyle />
       <Routes>
+        <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </>
