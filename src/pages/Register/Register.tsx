@@ -110,7 +110,7 @@ const Register = () => {
         </ContainerLeft>
 
         <ContainerRight>
-          <Title>FASCO</Title>
+          <Title>PASCO</Title>
           <SubTitle>Create Account</SubTitle>
 
           <ActionButton>
