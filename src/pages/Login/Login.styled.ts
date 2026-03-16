@@ -166,6 +166,10 @@ export const ButtonPrimary = styled.button`
 export const ButtonSecondary = styled.button`
   background: transparent;
   color: #4a7cff;
+  display: flex;
+  font-size: 14px;
+  justify-content: center;
+  text-decoration: none;
 
   border: 1px solid #4a7cff;
   border-radius: 4px;

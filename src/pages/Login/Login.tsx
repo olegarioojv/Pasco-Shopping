@@ -19,8 +19,12 @@ import {
 } from "./Login.styled";
 
 import { AuthContext } from "../../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const Login = () => {
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+
   const { signIn } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
@@ -38,13 +42,19 @@ const Login = () => {
     setIsLoading(true);
 
     try {
+      // ⏳ espera 2 segundos
+      await delay(2000);
+
       const success = await signIn(email.trim(), password.trim());
 
-      if (!success) {
+      if (success) {
+        console.log("✅ Login realizado com sucesso. Usuário autenticado.");
+      } else {
+        console.log("❌ Falha no login: email ou senha incorretos.");
         setErrorMessage("Email ou senha inválidos.");
       }
-      // Se success === true, redirecione via React Router ou similar
-    } catch {
+    } catch (error) {
+      console.log("⚠️ Erro de conexão:", error);
       setErrorMessage("Erro de conexão. Tente novamente.");
     } finally {
       setIsLoading(false);
@@ -109,7 +119,6 @@ const Login = () => {
                 required
               />
 
-              {/* ✅ Erro visível na UI, não em alert() */}
               {errorMessage && (
                 <p
                   style={{
@@ -125,7 +134,9 @@ const Login = () => {
                 {isLoading ? "Entrando..." : "Sign In"}
               </ButtonPrimary>
 
-              <ButtonSecondary type="button">Register Now</ButtonSecondary>
+              <ButtonSecondary as={Link} to="/register">
+                Register Now
+              </ButtonSecondary>
 
               <ForgetPassword>Forgot Password?</ForgetPassword>
             </ContainerInput>

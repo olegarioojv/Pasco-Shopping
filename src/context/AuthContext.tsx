@@ -2,14 +2,17 @@ import { createContext } from "react";
 
 export type User = {
   id: number;
+  name: string;
   email: string;
-  name?: string;
-  // ✅ password removido — nunca armazene senha no estado do cliente
 };
 
 export type AuthContextType = {
   user: User | null;
+
   signIn: (email: string, password: string) => Promise<boolean>;
+
+  signUp: (name: string, email: string, password: string) => Promise<boolean>;
+
   logout: () => void;
 };
 
