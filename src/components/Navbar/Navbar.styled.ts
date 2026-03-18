@@ -20,7 +20,7 @@ export const NavbarMenu = styled.div`
 // 🔥 LOGO
 export const NavbarLogo = styled.div`
   img {
-    max-height: 30px;
+    max-height: 20px;
     width: auto;
   }
 `;

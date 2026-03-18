@@ -1,5 +1,4 @@
 import { useState, useContext } from "react";
-
 import {
   ActionButton,
   ButtonPrimary,
@@ -19,9 +18,11 @@ import {
 } from "./Login.styled";
 
 import { AuthContext } from "../../context/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const delay = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -29,11 +30,7 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  // ✅ Estado de loading para desabilitar o botão durante a requisição
   const [isLoading, setIsLoading] = useState(false);
-
-  // ✅ Mensagem de erro no lugar de alert()
   const [errorMessage, setErrorMessage] = useState("");
 
   async function handleLogin(e: React.FormEvent) {
@@ -42,19 +39,17 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      // ⏳ espera 2 segundos
       await delay(2000);
 
       const success = await signIn(email.trim(), password.trim());
 
       if (success) {
-        console.log("✅ Login realizado com sucesso. Usuário autenticado.");
+        console.log("✅ Login realizado com sucesso.");
+        navigate("/home");
       } else {
-        console.log("❌ Falha no login: email ou senha incorretos.");
         setErrorMessage("Email ou senha inválidos.");
       }
     } catch (error) {
-      console.log("⚠️ Erro de conexão:", error);
       setErrorMessage("Erro de conexão. Tente novamente.");
     } finally {
       setIsLoading(false);
@@ -78,6 +73,7 @@ const Login = () => {
               <img
                 src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg"
                 width={16}
+                alt="google"
               />
               Sign up with Google
             </ButtonGoogle>
@@ -86,6 +82,7 @@ const Login = () => {
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png"
                 width={16}
+                alt="email"
               />
               Sign up with Email
             </ButtonEmail>
@@ -93,6 +90,7 @@ const Login = () => {
 
           <Divider />
 
+      
           <form onSubmit={handleLogin}>
             <ContainerInput>
               <Input

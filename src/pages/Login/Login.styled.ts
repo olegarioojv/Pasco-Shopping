@@ -155,6 +155,9 @@ export const ButtonPrimary = styled.button`
   background: black;
   color: white;
 
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
   padding: 10px;
 
   border: none;
