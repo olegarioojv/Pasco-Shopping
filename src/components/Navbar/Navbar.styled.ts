@@ -1,26 +1,31 @@
 import styled from "styled-components";
 
+// 🔥 CONTAINER
 export const NavbarContainer = styled.div`
   padding: 20px 80px;
+  position: relative;
 
   @media (max-width: 900px) {
     padding: 20px 30px;
   }
 `;
 
+// 🔥 MENU PRINCIPAL
 export const NavbarMenu = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
+// 🔥 LOGO
 export const NavbarLogo = styled.div`
   img {
-    max-height: 22px;
+    max-height: 30px;
     width: auto;
   }
 `;
 
+// 🔥 LINKS
 export const NavbarLinks = styled.div`
   display: flex;
   gap: 30px;
@@ -32,6 +37,7 @@ export const NavbarLinks = styled.div`
     position: relative;
   }
 
+  /* 🔥 LINHA ANIMADA */
   a::after {
     content: "";
     position: absolute;
@@ -47,11 +53,22 @@ export const NavbarLinks = styled.div`
     width: 100%;
   }
 
+  /* 🔥 LINK ATIVO */
+  .active::after {
+    width: 100%;
+  }
+
+  .active {
+    font-weight: bold;
+  }
+
+  /* 📱 MOBILE */
   @media (max-width: 900px) {
     display: none;
   }
 `;
 
+// 🔥 AÇÕES
 export const NavbarActions = styled.div`
   display: flex;
   align-items: center;
@@ -68,6 +85,7 @@ export const NavbarActions = styled.div`
   }
 `;
 
+// 🔥 BOTÃO
 export const NavbarButton = styled.button`
   font-size: 13px;
   color: white;
@@ -83,6 +101,7 @@ export const NavbarButton = styled.button`
   }
 `;
 
+// 🔥 BOTÃO MOBILE
 export const MobileMenuButton = styled.div`
   display: none;
   font-size: 22px;
@@ -93,6 +112,7 @@ export const MobileMenuButton = styled.div`
   }
 `;
 
+// 🔥 MENU MOBILE
 export const MobileMenu = styled.div`
   display: none;
 
@@ -102,11 +122,11 @@ export const MobileMenu = styled.div`
     gap: 20px;
 
     position: absolute;
-    top: 80px;
+    top: 70px;
     left: 0;
     width: 100%;
 
-    background: #f5f5f5;
+    background-color: white;
     padding: 20px 30px;
     border-top: 1px solid #eee;
   }
@@ -115,5 +135,9 @@ export const MobileMenu = styled.div`
     text-decoration: none;
     color: #333;
     font-size: 16px;
+  }
+
+  .active {
+    font-weight: bold;
   }
 `;
